@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HealthAssist – Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --teal: #0d9488;
+      --teal-dark: #0f766e;
+      --teal-light: #ccfbf1;
+      --navy: #0f172a;
+      --slate: #334155;
+      --muted: #94a3b8;
+      --white: #ffffff;
+      --bg: #f0fdf9;
+      --error: #ef4444;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      min-height: 100vh;
+      display: flex;
+      overflow: hidden;
+    }
+
+    /* LEFT PANEL */
+    .left-panel {
+      width: 45%;
+      background: linear-gradient(160deg, #0d9488 0%, #0f766e 40%, #134e4a 100%);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 60px 50px;
+      overflow: hidden;
+    }
+
+    .left-panel::before {
+      content: '';
+      position: absolute;
+      top: -80px; right: -80px;
+      width: 320px; height: 320px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.06);
+    }
+    .left-panel::after {
+      content: '';
+      position: absolute;
+      bottom: -60px; left: -60px;
+      width: 260px; height: 260px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.05);
+    }
+
+    .circle-deco {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+    .circle-deco.c1 { width: 180px; height: 180px; top: 20%; right: 10%; }
+    .circle-deco.c2 { width: 100px; height: 100px; bottom: 28%; left: 8%; }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 60px;
+      position: relative;
+      z-index: 2;
+      animation: fadeUp 0.8s ease both;
+    }
+
+    .brand-icon {
+      width: 52px; height: 52px;
+      background: rgba(255,255,255,0.18);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.25);
+    }
+
+    .brand-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: -0.3px;
+    }
+
+    .brand-name span { color: rgba(255,255,255,0.6); font-weight: 400; }
+
+    .left-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: 42px;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.2;
+      position: relative;
+      z-index: 2;
+      animation: fadeUp 0.9s 0.1s ease both;
+      margin-bottom: 20px;
+    }
+
+    .left-sub {
+      color: rgba(255,255,255,0.72);
+      font-size: 15px;
+      line-height: 1.7;
+      position: relative;
+      z-index: 2;
+      animation: fadeUp 0.9s 0.2s ease both;
+      margin-bottom: 50px;
+      max-width: 340px;
+    }
+
+    .features {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      position: relative;
+      z-index: 2;
+      animation: fadeUp 0.9s 0.3s ease both;
+    }
+
+    .feature {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      color: rgba(255,255,255,0.9);
+      font-size: 14px;
+    }
+
+    .feature-dot {
+      width: 32px; height: 32px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      flex-shrink: 0;
+    }
+
+    /* RIGHT PANEL */
+    .right-panel {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+      background: var(--bg);
+    }
+
+    .login-card {
+      width: 100%;
+      max-width: 420px;
+      animation: fadeUp 0.8s 0.2s ease both;
+    }
+
+    .card-header {
+      margin-bottom: 36px;
+    }
+
+    .card-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+
+    .card-header p {
+      color: var(--muted);
+      font-size: 14.5px;
+    }
+
+    .form-group {
+      margin-bottom: 22px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--slate);
+      margin-bottom: 8px;
+      letter-spacing: 0.3px;
+    }
+
+    .input-wrapper {
+      position: relative;
+    }
+
+    .input-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+      font-size: 17px;
+      pointer-events: none;
+    }
+
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 13px 16px 13px 44px;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 12px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14.5px;
+      color: var(--navy);
+      background: var(--white);
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: var(--teal);
+      box-shadow: 0 0 0 3px rgba(13,148,136,0.12);
+    }
+
+    input::placeholder { color: #cbd5e1; }
+
+    .toggle-pw {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--muted);
+      font-size: 16px;
+      padding: 4px;
+      transition: color 0.2s;
+    }
+    .toggle-pw:hover { color: var(--teal); }
+
+    .form-options {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 28px;
+    }
+
+    .remember {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      font-size: 13.5px;
+      color: var(--slate);
+    }
+
+    .remember input[type="checkbox"] {
+      width: 16px; height: 16px;
+      accent-color: var(--teal);
+      border-radius: 4px;
+      padding: 0;
+      border: none;
+      box-shadow: none;
+    }
+
+    .forgot-link {
+      font-size: 13.5px;
+      color: var(--teal);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .forgot-link:hover { color: var(--teal-dark); text-decoration: underline; }
+
+    .btn-login {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%);
+      color: var(--white);
+      border: none;
+      border-radius: 12px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 4px 18px rgba(13,148,136,0.35);
+      letter-spacing: 0.3px;
+    }
+
+    .btn-login:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 24px rgba(13,148,136,0.45);
+    }
+
+    .btn-login:active { transform: translateY(0); }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin: 28px 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .divider::before, .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: #e2e8f0;
+    }
+
+    .signup-row {
+      text-align: center;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .signup-row a {
+      color: var(--teal);
+      font-weight: 500;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .signup-row a:hover { color: var(--teal-dark); text-decoration: underline; }
+
+    .error-msg {
+      color: var(--error);
+      font-size: 12.5px;
+      margin-top: 6px;
+      display: none;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── MEDICAL GRAPHICS ── */
+    .ecg-container {
+      width: 100%;
+      margin-top: 36px;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 2;
+      animation: fadeUp 1s 0.4s ease both;
+    }
+    .ecg-svg { width: 100%; height: 56px; }
+    .ecg-path {
+      fill: none;
+      stroke: rgba(255,255,255,0.75);
+      stroke-width: 2.2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-dasharray: 700;
+      stroke-dashoffset: 700;
+      animation: drawECG 2.2s 0.8s ease forwards, pulseECG 2.5s 3.2s infinite;
+    }
+    @keyframes drawECG { to { stroke-dashoffset: 0; } }
+    @keyframes pulseECG {
+      0%, 100% { opacity: 0.75; }
+      50% { opacity: 1; filter: drop-shadow(0 0 5px rgba(255,255,255,0.9)); }
+    }
+    .med-cards-row {
+      display: flex;
+      gap: 10px;
+      position: relative;
+      z-index: 2;
+      animation: fadeUp 1s 0.55s ease both;
+    }
+    .med-card {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 14px;
+      padding: 12px 12px;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      backdrop-filter: blur(8px);
+      flex: 1;
+      position: relative;
+      animation: floatCard 4s ease-in-out infinite;
+    }
+    .med-card:nth-child(2) { animation-delay: 1s; }
+    .med-card:nth-child(3) { animation-delay: 2s; }
+    @keyframes floatCard {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+    .med-card-icon { font-size: 20px; flex-shrink: 0; }
+    .med-card-label {
+      font-size: 9px;
+      color: rgba(255,255,255,0.5);
+      font-family: 'DM Sans', sans-serif;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      display: block;
+    }
+    .med-card-value {
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.95);
+      font-family: 'DM Sans', sans-serif;
+      display: block;
+    }
+    .pulse-dot {
+      position: absolute;
+      top: 8px; right: 8px;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #4ade80;
+      animation: pulseDot 2s infinite;
+    }
+    @keyframes pulseDot {
+      0%   { box-shadow: 0 0 0 0 rgba(74,222,128,0.7); }
+      70%  { box-shadow: 0 0 0 8px rgba(74,222,128,0); }
+      100% { box-shadow: 0 0 0 0 rgba(74,222,128,0); }
+    }
+    .cross-deco {
+      position: absolute;
+      bottom: 90px; right: 20px;
+      opacity: 0.1;
+      animation: spinSlow 25s linear infinite;
+      z-index: 1;
+    }
+    @keyframes spinSlow {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+    .dna-deco {
+      position: absolute;
+      top: 55px; left: 14px;
+      opacity: 0.1;
+      animation: floatDNA 7s ease-in-out infinite;
+      z-index: 1;
+    }
+    @keyframes floatDNA {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-14px); }
+    }
+
+    @media (max-width: 768px) {
+      .left-panel { display: none; }
+      .right-panel { padding: 30px 24px; }
+    }
+ .d{
+    font-size:15px ;
+    color:white;
+    
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LEFT PANEL -->
+  <div class="left-panel">
+    <div class="circle-deco c1"></div>
+    <div class="circle-deco c2"></div>
+
+    <div class="brand">
+      <div class="brand-icon">🏥</div>
+      <div class="brand-name">Health<span>Assist</span></div>
+    </div>
+
+    <h1 class="left-headline">Your health,<br/>our priority.</h1>
+    <p class="left-sub">Access trusted medical assistance, doctor consultations, and health records — all in one secure platform.</p>
+
+    <div class="features">
+      <div class="feature">
+        <div class="feature-dot">🩺</div>
+        24/7 Online Doctor Consultations
+      </div>
+      <div class="feature">
+        <div class="feature-dot">📋</div>
+        Secure Health Records Management
+      </div>
+      <div class="feature">
+        <div class="feature-dot">💊</div>
+        Prescription & Medication Tracking
+      </div>
+      <div class="feature">
+        <div class="feature-dot">🔒</div>
+        HIPAA-Compliant & Fully Encrypted
+      </div>
+    </div>
+
+    <!-- ECG Heartbeat Line -->
+    <div class="ecg-container">
+      <svg class="ecg-svg" viewBox="0 0 400 56" preserveAspectRatio="none">
+        <path class="ecg-path" d="
+          M0,28
+          L40,28
+          L55,28
+          L60,10
+          L65,46
+          L72,4
+          L78,50
+          L84,28
+          L100,28
+          L140,28
+          L155,28
+          L160,12
+          L165,44
+          L172,6
+          L178,48
+          L184,28
+          L200,28
+          L240,28
+          L255,28
+          L260,10
+          L265,46
+          L272,4
+          L278,50
+          L284,28
+          L300,28
+          L340,28
+          L355,28
+          L360,12
+          L365,44
+          L372,6
+          L378,48
+          L384,28
+          L400,28
+        "/>
+      </svg>
+    </div>
+
+    <!-- Animated Medical Stat Cards -->
+    <div class="med-cards-row">
+      <div class="med-card">
+        <div class="pulse-dot"></div>
+        <div class="med-card-icon">❤️</div>
+        <div>
+          <span class="med-card-label">Heart Rate</span>
+          <span class="med-card-value">72 bpm</span>
+        </div>
+      </div>
+      <div class="med-card">
+        <div class="med-card-icon">🩸</div>
+        <div>
+          <span class="med-card-label">Blood Pressure</span>
+          <span class="med-card-value">120/80</span>
+        </div>
+      </div>
+      <div class="med-card">
+        <div class="med-card-icon">🌡️</div>
+        <div>
+          <span class="med-card-label">Temperature</span>
+          <span class="med-card-value">98.6°F</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Rotating medical cross SVG deco -->
+    <svg class="cross-deco" width="120" height="120" viewBox="0 0 120 120" fill="none">
+      <rect x="45" y="10" width="30" height="100" rx="8" fill="white"/>
+      <rect x="10" y="45" width="100" height="30" rx="8" fill="white"/>
+    </svg>
+
+    <!-- Floating DNA helix SVG deco -->
+    <svg class="dna-deco" width="60" height="160" viewBox="0 0 60 160" fill="none">
+      <path d="M10 10 Q50 30 10 50 Q50 70 10 90 Q50 110 10 130 Q50 150 10 160" stroke="white" stroke-width="2.5" fill="none"/>
+      <path d="M50 10 Q10 30 50 50 Q10 70 50 90 Q10 110 50 130 Q10 150 50 160" stroke="white" stroke-width="2.5" fill="none"/>
+      <line x1="10" y1="30" x2="50" y2="30" stroke="white" stroke-width="1.5" opacity="0.6"/>
+      <line x1="10" y1="50" x2="50" y2="50" stroke="white" stroke-width="1.5" opacity="0.6"/>
+      <line x1="10" y1="70" x2="50" y2="70" stroke="white" stroke-width="1.5" opacity="0.6"/>
+      <line x1="10" y1="90" x2="50" y2="90" stroke="white" stroke-width="1.5" opacity="0.6"/>
+      <line x1="10" y1="110" x2="50" y2="110" stroke="white" stroke-width="1.5" opacity="0.6"/>
+      <line x1="10" y1="130" x2="50" y2="130" stroke="white" stroke-width="1.5" opacity="0.6"/>
+    </svg>
+
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="right-panel">
+    <div class="login-card">
+      <div class="card-header">
+        <h2>Health Assistance 🏥</h2>
+        <p>Sign in to your HealthAssist account to continue</p>
+      </div>
+
+      <form id="loginForm" onsubmit="handleLogin(event)">
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <div class="input-wrapper">
+            <span class="input-icon">📧</span>
+            <input type="email" id="email" placeholder="you@example.com" autocomplete="email"/>
+          </div>
+          <div class="error-msg" id="emailError">Please enter a valid email address.</div>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <div class="input-wrapper">
+            <span class="input-icon">🔑</span>
+            <input type="password" id="password" placeholder="Enter your password" autocomplete="current-password"/>
+            <button type="button" class="toggle-pw" onclick="togglePassword()" id="toggleBtn" aria-label="Toggle password visibility">👁️</button>
+          </div>
+          <div class="error-msg" id="passwordError">Password must be at least 6 characters.</div>
+        </div>
+
+        <div class="form-options">
+          <label class="remember">
+            <input type="checkbox" id="remember"/>
+            Remember me
+          </label>
+          <a href="#" class="forgot-link">Forgot password?</a>
+        </div>
+
+        <button type="submit" class="btn-login">Sign In to HealthAssist</button> 
+        
+ <button onclick="gotogame()" class="btn-login"><a class="d" href ='a\fruitninja.htm' >play game </a></button>=
+      </form>
+      <div class="divider">or</div>
+
+      <div class="signup-row">
+        Don't have an account? <a href="a\signup (1).html">Create a free account</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+
+    function gotogame(){
+       
+       }
+
+
+    function togglePassword() {
+      const pw = document.getElementById('password');
+      const btn = document.getElementById('toggleBtn');
+      if (pw.type === 'password') {
+        pw.type = 'text';
+        btn.textContent = '🙈';
+      } else {
+        pw.type = 'password';
+        btn.textContent = '👁️';
+      }
+    }
+
+    function handleLogin(e) {
+      e.preventDefault();
+      const email = document.getElementById('email');
+      const password = document.getElementById('password');
+      const emailErr = document.getElementById('emailError');
+      const pwErr = document.getElementById('passwordError');
+      let valid = true;
+
+      emailErr.style.display = 'none';
+      pwErr.style.display = 'none';
+      email.style.borderColor = '#e2e8f0';
+      password.style.borderColor = '#e2e8f0';
+
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email.value.trim())) {
+        emailErr.style.display = 'block';
+        email.style.borderColor = '#ef4444';
+        valid = false;
+      }
+
+      if (password.value.length < 6) {
+        pwErr.style.display = 'block';
+        password.style.borderColor = '#ef4444';
+        valid = false;
+      }
+
+      if (valid) {
+        const btn = document.querySelector('.btn-login');
+        btn.textContent = 'Signing in…';
+        btn.disabled = true;
+        setTimeout(() => {
+          btn.textContent = '✅ Redirecting to your check-in…';
+          setTimeout(() => {
+            window.location.href = '\survey.html';
+          }, 700);
+        }, 1500);
+      }
+    }
+  </script>
+</body>
+</html>
